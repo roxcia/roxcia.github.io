@@ -9,7 +9,7 @@ menu:
   关于: /about/ || fas fa-user
 
 social:
-  fab fa-github: https://github.com/USERNAME || GitHub || '#24292e'
+  fab fa-github: https://github.com/roxcia || GitHub || '#24292e'
 
 favicon: /img/favicon.ico
 
@@ -38,7 +38,7 @@ aside:
       enable: true
       icon: fab fa-github
       text: GitHub
-      link: https://github.com/USERNAME
+      link: https://github.com/roxcia
   card_announcement:
     enable: true
     content: 欢迎来到 roxcia的博客，愿这里的文字清爽、真诚，也有一点漂亮。
@@ -69,4 +69,4 @@ theme_color:
 
 inject:
   head:
-    - <link rel="stylesheet" href="/blog/css/roxci-theme.css">
+    - <link rel="stylesheet" href="/css/roxci-theme.css">

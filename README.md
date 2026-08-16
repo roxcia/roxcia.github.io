@@ -18,15 +18,14 @@ npm run build
 ## 发布到 GitHub Pages
 
 1. 在 GitHub 创建仓库 `blog`。
-2. 将 `_config.yml` 中的 `USERNAME` 替换成你的 GitHub 用户名。
+2. 在仓库 Settings -> Pages 中选择 GitHub Actions。
 3. 推送到 `main` 分支。
-4. 在仓库 Settings -> Pages 中选择 GitHub Actions。
 
 ```bash
 git init
 git add .
 git commit -m "Initialize Hexo blog"
 git branch -M main
-git remote add origin https://github.com/USERNAME/blog.git
+git remote add origin https://github.com/roxcia/roxcia.github.io.git
 git push -u origin main
 ```

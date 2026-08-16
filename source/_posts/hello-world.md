@@ -37,6 +37,6 @@ npm run server
 git add .
 git commit -m "Initialize Hexo blog"
 git branch -M main
-git remote add origin https://github.com/USERNAME/blog.git
+git remote add origin https://github.com/roxcia/roxcia.github.io.git
 git push -u origin main
 ```
