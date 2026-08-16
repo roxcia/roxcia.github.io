@@ -1,16 +1,25 @@
 :root {
-  --roxci-rose: #e56b8c;
-  --roxci-coral: #f08f77;
-  --roxci-teal: #47a7a1;
-  --roxci-ink: #2b2730;
-  --roxci-paper: #fffaf6;
+  --roxci-blue: #49b1f5;
+  --roxci-pink: #fca4d4;
+  --roxci-coral: #ff8f91;
+  --roxci-teal: #52c4bd;
+  --roxci-ink: #253044;
+  --roxci-paper: rgba(255, 255, 255, 0.76);
+  --roxci-glass: rgba(255, 255, 255, 0.68);
+  --roxci-border: rgba(73, 177, 245, 0.22);
+  --roxci-shadow: 0 18px 55px rgba(58, 91, 128, 0.14);
 }
 
 body {
   background:
-    linear-gradient(135deg, rgba(255, 250, 246, 0.96), rgba(245, 250, 249, 0.94)),
-    repeating-linear-gradient(90deg, rgba(229, 107, 140, 0.045) 0 1px, transparent 1px 72px);
+    linear-gradient(135deg, rgba(247, 251, 255, 0.98), rgba(255, 246, 251, 0.94) 46%, rgba(244, 255, 253, 0.94)),
+    repeating-linear-gradient(90deg, rgba(73, 177, 245, 0.05) 0 1px, transparent 1px 76px);
   color: var(--roxci-ink);
+}
+
+::selection {
+  background: rgba(252, 164, 212, 0.55);
+  color: #1f2937;
 }
 
 #page-header.full_page {
@@ -19,13 +28,31 @@ body {
 
 #page-header.full_page:before,
 #page-header.not-home-page:before {
-  background: linear-gradient(135deg, rgba(35, 28, 43, 0.72), rgba(229, 107, 140, 0.34), rgba(71, 167, 161, 0.38));
+  background:
+    linear-gradient(135deg, rgba(20, 35, 56, 0.72), rgba(73, 177, 245, 0.34), rgba(252, 164, 212, 0.36)),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.16), rgba(255, 255, 255, 0.06));
+}
+
+#nav {
+  backdrop-filter: blur(16px) saturate(1.18);
+  -webkit-backdrop-filter: blur(16px) saturate(1.18);
+}
+
+#page-header.nav-fixed #nav,
+#page-header.not-top-img #nav {
+  background: rgba(255, 255, 255, 0.64);
+  box-shadow: 0 10px 30px rgba(58, 91, 128, 0.12);
+}
+
+[data-theme='dark'] #page-header.nav-fixed #nav,
+[data-theme='dark'] #page-header.not-top-img #nav {
+  background: rgba(25, 23, 36, 0.72);
 }
 
 #site-title {
   font-weight: 800;
   letter-spacing: 0;
-  text-shadow: 0 6px 24px rgba(43, 39, 48, 0.28);
+  text-shadow: 0 8px 28px rgba(20, 35, 56, 0.34);
 }
 
 #site-subtitle,
@@ -40,44 +67,121 @@ body {
 #archive,
 #tag,
 #category {
-  border: 1px solid rgba(229, 107, 140, 0.15);
-  box-shadow: 0 18px 45px rgba(69, 49, 64, 0.08);
+  background: var(--roxci-glass);
+  border: 1px solid var(--roxci-border);
+  box-shadow: var(--roxci-shadow);
+  backdrop-filter: blur(18px) saturate(1.08);
+  -webkit-backdrop-filter: blur(18px) saturate(1.08);
 }
 
 #recent-posts > .recent-post-item:hover,
 .card-widget:hover {
-  box-shadow: 0 22px 55px rgba(69, 49, 64, 0.13);
+  box-shadow: 0 22px 60px rgba(58, 91, 128, 0.19);
   transform: translateY(-2px);
 }
 
 a,
 .article-title,
 #aside-content .card-info .author-info-name {
-  color: var(--roxci-rose);
+  color: var(--roxci-blue);
 }
 
 a:hover,
 .article-title:hover {
-  color: var(--roxci-teal);
+  color: var(--roxci-pink);
 }
 
 #aside-content .card-info #card-info-btn {
-  background: linear-gradient(135deg, var(--roxci-rose), var(--roxci-coral));
+  background: linear-gradient(135deg, var(--roxci-blue), var(--roxci-pink));
   border-radius: 8px;
-  box-shadow: 0 10px 24px rgba(229, 107, 140, 0.24);
+  box-shadow: 0 10px 26px rgba(73, 177, 245, 0.28);
 }
 
 #pagination .page-number.current,
 #pagination .extend:hover,
 #pagination .page-number:hover {
-  background: var(--roxci-teal);
+  background: linear-gradient(135deg, var(--roxci-blue), var(--roxci-pink));
+}
+
+#aside-content #card-toc .toc-content .toc-link.active,
+#aside-content #card-toc .toc-content .toc-link:hover {
+  color: var(--roxci-pink);
 }
 
 blockquote {
-  border-left-color: var(--roxci-rose);
-  background: #fff2f6;
+  border-left-color: var(--roxci-blue);
+  background: rgba(243, 249, 255, 0.82);
 }
 
 code {
   border-radius: 6px;
+}
+
+#footer {
+  background: transparent;
+  color: rgba(37, 48, 68, 0.72);
+}
+
+#footer:before {
+  background: transparent;
+}
+
+#rightside > div > button,
+#rightside > div > a {
+  background: rgba(255, 255, 255, 0.68);
+  color: var(--roxci-blue);
+  border: 1px solid rgba(73, 177, 245, 0.2);
+  box-shadow: 0 8px 24px rgba(58, 91, 128, 0.14);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+#rightside > div > button:hover,
+#rightside > div > a:hover {
+  background: linear-gradient(135deg, var(--roxci-blue), var(--roxci-pink));
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--roxci-blue), var(--roxci-pink));
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.52);
+}
+
+[data-theme='dark'] body {
+  background:
+    linear-gradient(135deg, rgba(25, 23, 36, 0.98), rgba(37, 31, 48, 0.96) 50%, rgba(23, 40, 48, 0.95)),
+    repeating-linear-gradient(90deg, rgba(252, 164, 212, 0.045) 0 1px, transparent 1px 76px);
+}
+
+[data-theme='dark'] #recent-posts > .recent-post-item,
+[data-theme='dark'] .card-widget,
+[data-theme='dark'] #post,
+[data-theme='dark'] #page,
+[data-theme='dark'] #archive,
+[data-theme='dark'] #tag,
+[data-theme='dark'] #category {
+  background: rgba(35, 33, 48, 0.72);
+  border-color: rgba(252, 164, 212, 0.16);
+}
+
+@media (max-width: 768px) {
+  #recent-posts > .recent-post-item,
+  .card-widget,
+  #post,
+  #page,
+  #archive,
+  #tag,
+  #category {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
 }
