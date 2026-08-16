@@ -841,6 +841,89 @@ index fd442d7..ae1cde3 100644
 -    100%
 -      transform: rotate(-315deg)
 +@import '../_load_style/shine'
+diff --git a/source/css/_layout/sun_moon.styl b/source/css/_layout/sun_moon.styl
+new file mode 100644
+index 0000000..860337b
+--- /dev/null
++++ b/source/css/_layout/sun_moon.styl
+@@ -0,0 +1,77 @@
++.Cuteen_DarkSky,
++.Cuteen_DarkSky:before
++  content: ''
++  position: fixed
++  left: 0
++  right: 0
++  top: 0
++  bottom: 0
++  z-index: 88888888
++
++.Cuteen_DarkSky
++  pointer-events: none
++  background: linear-gradient(to top, #f8cd71 0, #5bfde9 80%)
++
++  &:before
++    transition: 2s ease all
++    opacity: 0
++    background: linear-gradient(to top, #30cfd0 0, #330867 100%)
++
++.DarkMode
++  .Cuteen_DarkSky
++    &:before
++      opacity: 1
++
++.Cuteen_DarkPlanet
++  z-index: 99999999
++  position: fixed
++  left: -50%
++  top: -50%
++  width: 200%
++  height: 200%
++  -webkit-animation: CuteenPlanetMove 2s cubic-bezier(.7, 0, 0, 1)
++  animation: CuteenPlanetMove 2s cubic-bezier(.7, 0, 0, 1)
++  transform-origin: center bottom
++
++  #sun
++    position: absolute
++    border-radius: 100%
++    left: 44%
++    top: 30%
++    height: 6rem
++    width: 6rem
++    background: #ffee94
++    box-shadow: 0 0 40px #ffee94
++    transition: opacity 1s ease
++
++  #moon
++    position: absolute
++    border-radius: 100%
++    left: 44%
++    top: 30%
++    height: 6rem
++    width: 6rem
++    box-shadow: -1.8em 1.8em 0 .2em #fff
++    transition: opacity 1s ease
++
++@-webkit-keyframes CuteenPlanetMove
++  0%
++    transform: rotate(0)
++
++  to
++    transform: rotate(360deg)
++
++@keyframes CuteenPlanetMove
++  0%
++    transform: rotate(0)
++
++  to
++    transform: rotate(360deg)
++
++.search
++  span
++    display: none
++
++.menus_item
++  a
++    text-decoration: none !important
 diff --git a/source/css/_load_style/default.styl b/source/css/_load_style/default.styl
 new file mode 100644
 index 0000000..e59bca1
@@ -2344,3 +2427,134 @@ index bd1fb81..dffbc12 100644
 -$note-dark-modern-danger-hover = #e59fa2
 \ No newline at end of file
 +$note-dark-modern-danger-hover = #e59fa2
+diff --git a/source/js/main.js b/source/js/main.js
+index 0aab1d5..7707aee 100644
+--- a/source/js/main.js
++++ b/source/js/main.js
+@@ -661,10 +661,15 @@ document.addEventListener('DOMContentLoaded', () => {
+       newEle.addEventListener('click', exitReadMode)
+       $body.appendChild(newEle)
+     },
+-    darkmode: () => { // switch between light and dark mode
+-      const willChangeMode = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
+-      if (willChangeMode === 'dark') {
+-        btf.activateDarkMode()
++    darkmode: () => { // switch between light and dark mode
++      if (typeof window.switchNightMode === 'function') {
++        window.switchNightMode()
++        return
++      }
++
++      const willChangeMode = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
++      if (willChangeMode === 'dark') {
++        btf.activateDarkMode()
+         GLOBAL_CONFIG.Snackbar !== undefined && btf.snackbarShow(GLOBAL_CONFIG.Snackbar.day_to_night)
+       } else {
+         btf.activateLightMode()
+diff --git a/source/js/sun_moon.js b/source/js/sun_moon.js
+new file mode 100644
+index 0000000..1d892d6
+--- /dev/null
++++ b/source/js/sun_moon.js
+@@ -0,0 +1,101 @@
++function switchNightMode () {
++  const body = document.body
++  const html = document.documentElement
++  const isLight = html.getAttribute('data-theme') !== 'dark'
++
++  body.insertAdjacentHTML('beforeend', '<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"><div id="sun"></div><div id="moon"></div></div></div>')
++
++  const sky = document.querySelector('.Cuteen_DarkSky')
++  const sun = document.getElementById('sun')
++  const moon = document.getElementById('moon')
++
++  if (sun && moon) {
++    sun.style.opacity = isLight ? '1' : '0'
++    moon.style.opacity = isLight ? '0' : '1'
++
++    setTimeout(() => {
++      sun.style.opacity = isLight ? '0' : '1'
++      moon.style.opacity = isLight ? '1' : '0'
++    }, 1000)
++  }
++
++  if (isLight) {
++    btf.activateDarkMode()
++    btf.saveToLocal.set('theme', 'dark', 2)
++    body.classList.add('DarkMode')
++    setModeIcon('dark')
++    showModeNotice('关灯啦??', '当前已成功切换至夜间模式！')
++    handleThemeSideEffects('dark')
++  } else {
++    btf.activateLightMode()
++    btf.saveToLocal.set('theme', 'light', 2)
++    body.classList.remove('DarkMode')
++    setModeIcon('light')
++    showModeNotice('开灯啦??', '当前已成功切换至白天模式！')
++    handleThemeSideEffects('light')
++  }
++
++  setTimeout(() => {
++    if (!sky) return
++    sky.style.transition = 'opacity 3s'
++    sky.style.opacity = '0'
++
++    setTimeout(() => {
++      sky.remove()
++    }, 1000)
++  }, 2000)
++}
++
++function setModeIcon (mode) {
++  const modeIcon = document.getElementById('modeicon')
++  if (modeIcon) {
++    modeIcon.setAttribute('xlink:href', mode === 'dark' ? '#icon-sun' : '#icon-moon')
++    return
++  }
++
++  const icon = document.querySelector('#darkmode i')
++  if (!icon) return
++  icon.className = mode === 'dark' ? 'fas fa-sun' : 'fas fa-moon'
++}
++
++function showModeNotice (title, message) {
++  setTimeout(() => {
++    if (window.Vue && window.ELEMENT) {
++      new Vue({
++        data: function () {
++          this.$notify({
++            title,
++            message,
++            position: 'top-left',
++            offset: 50,
++            showClose: true,
++            type: 'success',
++            duration: 5000
++          })
++        }
++      })
++      return
++    }
++
++    if (window.btf && typeof btf.snackbarShow === 'function') {
++      btf.snackbarShow(message)
++    }
++  }, 2000)
++}
++
++function handleThemeSideEffects (mode) {
++  typeof utterancesTheme === 'function' && utterancesTheme()
++  typeof FB === 'object' && window.loadFBComment()
++  window.DISQUS && document.getElementById('disqus_thread')?.children.length && setTimeout(() => window.disqusReset(), 200)
++
++  const globalFn = window.globalFn || {}
++  const themeChange = globalFn.themeChange || {}
++  Object.keys(themeChange).forEach(key => {
++    const themeChangeFn = themeChange[key]
++    if (['disqus', 'disqusjs'].includes(key)) {
++      setTimeout(() => themeChangeFn(mode), 300)
++    } else {
++      themeChangeFn(mode)
++    }
++  })
++}

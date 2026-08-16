@@ -16,11 +16,11 @@ favicon: /img/favicon.ico
 
 background: '#f8f4ef'
 
-default_top_img: /img/404.jpg
-index_img: /img/404.jpg
-archive_img: /img/404.jpg
-tag_img: /img/404.jpg
-category_img: /img/404.jpg
+default_top_img: /img/background.jpg
+index_img: /img/background.jpg
+archive_img: /img/background.jpg
+tag_img: /img/background.jpg
+category_img: /img/background.jpg
 
 subtitle:
   enable: true
@@ -70,17 +70,54 @@ theme_color:
 
 inject:
   head:
+    - <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.15.14/lib/theme-chalk/index.css">
+    - <link rel="stylesheet" href="/css/pace-custom.css">
+    - <script>window.paceOptions = { restartOnPushState:false };</script>
+    - <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
     - <link rel="stylesheet" href="/css/roxci-theme.css">
   bottom:
     - <script async src="/js/title.js"></script>
+    - <script src="/js/ban-ie.js"></script>
+    - <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.min.js"></script>
+    - <script src="https://cdn.jsdelivr.net/npm/element-ui@2.15.14/lib/index.js"></script>
+    - <script src="/js/sun_moon.js"></script>
 
 preloader:
   enable: true
   source: 3
   avatar: /img/butterfly-icon.png
-  load_image: /img/404.jpg
+  load_image: /img/background.jpg
   load_color: '#f6eff6'
-  pace_css_url:
+  pace_css_url: /css/pace-custom.css
+
+# hexo-butterfly-categories-card
+# see https://akilar.top/posts/a9131002/
+categoryBar:
+  enable: true
+  priority: 5
+  enable_page: /
+  layout:
+    type: id
+    name: recent-posts
+    index: 0
+  column: odd
+  row: 1
+  message:
+    - descr: 博客搭建记录
+      cover: /img/background.jpg
+    - descr: htblabs
+      cover: /img/background.jpg
+    - descr: htb prolab
+      cover: /img/background.jpg
+    - descr: java代码审计
+      cover: /img/background.jpg
+    - descr: 内网渗透知识总结
+      cover: /img/background.jpg
+  custom_css: https://npm.elemecdn.com/hexo-butterfly-categories-card@1.0.0/lib/categorybar.css
+
+banIE:
+  enable: true
+  message: 当前浏览器版本较旧，建议使用 Chrome、Edge 或 Firefox 浏览 roxcia的博客。
 
 # 友链样式：butterfly 为默认样式，volantis 为站点卡片样式，flexcard 为弹性卡片样式
 flink_style: volantis
