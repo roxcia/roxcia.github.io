@@ -74,8 +74,11 @@ inject:
     - <link rel="stylesheet" href="/css/pace-custom.css">
     - <script>window.paceOptions = { restartOnPushState:false };</script>
     - <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    - <link rel="stylesheet" href="/css/cat.css">
     - <link rel="stylesheet" href="/css/roxci-theme.css">
   bottom:
+    - <script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script>
+    - <script defer data-pjax src="/js/cat.js"></script>
     - <script async src="/js/title.js"></script>
     - <script src="/js/ban-ie.js"></script>
     - <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.min.js"></script>
