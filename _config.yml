@@ -111,10 +111,19 @@ live2d:
   model:
     use: live2d-widget-model-nipsilon
   display:
-    position: right
-    width: 150
-    height: 300
+    position: left
+    width: 220
+    height: 440
     hOffset: 15
     vOffset: -20
   mobile:
     show: true
+
+# Loading animation
+preloader:
+  enable: true
+  source: 3
+  avatar: /img/butterfly-icon.png
+  load_image: /img/404.jpg
+  load_color: '#f6eff6'
+  pace_css_url:

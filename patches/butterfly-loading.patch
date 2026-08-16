@@ -1,0 +1,1750 @@
+diff --git a/layout/includes/loading/gear.pug b/layout/includes/loading/gear.pug
+new file mode 100644
+index 0000000..bcb020f
+--- /dev/null
++++ b/layout/includes/loading/gear.pug
+@@ -0,0 +1,39 @@
++#loading-box
++  .gear-loader
++    .gear-loader_overlay
++    .gear-loader_avater
++    .gear-loader_cogs
++      .gear-loader_cogs__top
++        .gear-top_part
++        .gear-top_part
++        .gear-top_part
++        .gear-top_hole
++      .gear-loader_cogs__left
++        .gear-left_part
++        .gear-left_part
++        .gear-left_part
++        .gear-left_hole
++      .gear-loader_cogs__bottom
++        .gear-bottom_part
++        .gear-bottom_part
++        .gear-bottom_part
++        .gear-bottom_hole
++
++script.
++  const preloader = {
++    endLoading: () => {
++      document.body.style.overflow = 'auto';
++      document.getElementById('loading-box').classList.add("loaded")
++    },
++    initLoading: () => {
++      document.body.style.overflow = '';
++      document.getElementById('loading-box').classList.remove("loaded")
++
++    }
++  }
++  window.addEventListener('load',()=> { preloader.endLoading() })
++
++  if (!{theme.pjax && theme.pjax.enable}) {
++    document.addEventListener('pjax:send', () => { preloader.initLoading() })
++    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
++  }
+diff --git a/layout/includes/loading/image.pug b/layout/includes/loading/image.pug
+new file mode 100644
+index 0000000..4e3fb30
+--- /dev/null
++++ b/layout/includes/loading/image.pug
+@@ -0,0 +1,24 @@
++- var loadimage = theme.preloader.load_image ? theme.preloader.load_image : theme.error_img.post_page
++#loading-box
++  .loading-left-bg
++  .loading-right-bg
++  img.load-image(src=url_for(loadimage) alt='')
++
++script.
++  const preloader = {
++    endLoading: () => {
++      document.body.style.overflow = 'auto';
++      document.getElementById('loading-box').classList.add("loaded")
++    },
++    initLoading: () => {
++      document.body.style.overflow = '';
++      document.getElementById('loading-box').classList.remove("loaded")
++
++    }
++  }
++  window.addEventListener('load',()=> { preloader.endLoading() })
++
++  if (!{theme.pjax && theme.pjax.enable}) {
++    document.addEventListener('pjax:send', () => { preloader.initLoading() })
++    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
++  }
+diff --git a/layout/includes/loading/index.pug b/layout/includes/loading/index.pug
+index b058b58..240a527 100644
+--- a/layout/includes/loading/index.pug
++++ b/layout/includes/loading/index.pug
+@@ -1,5 +1,15 @@
+ if theme.preloader.enable
+   if theme.preloader.source === 1
+     include ./fullpage-loading.pug
+-  else
+-    include ./pace.pug
+\ No newline at end of file
++  else if theme.preloader.source === 2
++    include ./pace.pug
++  else if  theme.preloader.source === 3
++    include ./shine.pug
++  else if  theme.preloader.source === 4
++    include ./gear.pug
++  else if  theme.preloader.source === 5
++    include ./ironheart.pug
++  else if  theme.preloader.source === 6
++    include ./wizard.pug
++  else if  theme.preloader.source === 7
++    include ./image.pug
+diff --git a/layout/includes/loading/ironheart.pug b/layout/includes/loading/ironheart.pug
+new file mode 100644
+index 0000000..88a9e63
+--- /dev/null
++++ b/layout/includes/loading/ironheart.pug
+@@ -0,0 +1,37 @@
++#loading-box
++  .loading-left-bg
++  .loading-right-bg
++  .iron-container.iron-circle
++    .iron-box1.iron-circle.iron-center
++    .iron-box2.iron-circle.iron-center
++    .iron-box3.iron-circle.iron-center
++    .iron-box4.iron-circle.iron-center
++    .iron-box5.iron-circle.iron-center
++    .iron-box6.iron-circle
++      .iron-coil(style='--i: 0')
++      .iron-coil(style='--i: 1')
++      .iron-coil(style='--i: 2')
++      .iron-coil(style='--i: 3')
++      .iron-coil(style='--i: 4')
++      .iron-coil(style='--i: 5')
++      .iron-coil(style='--i: 6')
++      .iron-coil(style='--i: 7')
++
++script.
++  const preloader = {
++    endLoading: () => {
++      document.body.style.overflow = 'auto';
++      document.getElementById('loading-box').classList.add("loaded")
++    },
++    initLoading: () => {
++      document.body.style.overflow = '';
++      document.getElementById('loading-box').classList.remove("loaded")
++
++    }
++  }
++  window.addEventListener('load',()=> { preloader.endLoading() })
++
++  if (!{theme.pjax && theme.pjax.enable}) {
++    document.addEventListener('pjax:send', () => { preloader.initLoading() })
++    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
++  }
+diff --git a/layout/includes/loading/shine.pug b/layout/includes/loading/shine.pug
+new file mode 100644
+index 0000000..ba0a731
+--- /dev/null
++++ b/layout/includes/loading/shine.pug
+@@ -0,0 +1,37 @@
++- loading_img = theme.preloader.avatar
++#loading-box(onclick='document.getElementById("loading-box").classList.add("loaded")')
++  .loading-bg
++    img.loading-img(class='nolazyload' src=loading_img ? url_for(loading_img) : "/img/avatar.webp")
++    .loading-image-dot
++    #loading-percentage
++      | 0%
++script.
++  const loadingPercentage = document.getElementById("loading-percentage");
++  loadingPercentage.style.color = "black";
++  let loadingPercentageTimer = setInterval(function() {
++    var progressBar = document.querySelector(".pace-progress");
++    if (!progressBar) return
++    var currentValue = progressBar.getAttribute("data-progress-text");
++    if (currentValue !== loadingPercentage.textContent) {
++      loadingPercentage.textContent = currentValue;
++      if (currentValue === "100%") {
++        clearInterval(loadingPercentageTimer);
++      }
++    }
++  }, 100);
++  const preloader = {
++    endLoading: () => {
++      document.body.style.overflow = 'auto';
++      document.getElementById('loading-box').classList.add("loaded")
++    },
++    initLoading: () => {
++      document.body.style.overflow = '';
++      document.getElementById('loading-box').classList.remove("loaded")
++    }
++  }
++  window.addEventListener('load',()=> { preloader.endLoading() })
++
++  if (!{theme.pjax && theme.pjax.enable}) {
++    document.addEventListener('pjax:send', () => { preloader.initLoading() })
++    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
++  }
+diff --git a/layout/includes/loading/wizard.pug b/layout/includes/loading/wizard.pug
+new file mode 100644
+index 0000000..c35bada
+--- /dev/null
++++ b/layout/includes/loading/wizard.pug
+@@ -0,0 +1,42 @@
++#loading-box
++  .loading-left-bg
++  .loading-right-bg
++  .wizard-scene
++    .wizard-objects
++      .wizard-square
++      .wizard-circle
++      .wizard-triangle
++    .wizard
++      .wizard-body
++      .wizard-right-arm
++        .wizard-right-hand
++      .wizard-left-arm
++        .wizard-left-hand
++      .wizard-head
++        .wizard-beard
++        .wizard-face
++          .wizard-adds
++        .wizard-hat
++          .wizard-hat-of-the-hat
++          .wizard-four-point-star.--first
++          .wizard-four-point-star.--second
++          .wizard-four-point-star.--third
++
++script.
++  const preloader = {
++    endLoading: () => {
++      document.body.style.overflow = 'auto';
++      document.getElementById('loading-box').classList.add("loaded")
++    },
++    initLoading: () => {
++      document.body.style.overflow = '';
++      document.getElementById('loading-box').classList.remove("loaded")
++
++    }
++  }
++  window.addEventListener('load',()=> { preloader.endLoading() })
++
++  if (!{theme.pjax && theme.pjax.enable}) {
++    document.addEventListener('pjax:send', () => { preloader.initLoading() })
++    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
++  }
+diff --git a/layout/includes/rightside.pug b/layout/includes/rightside.pug
+index 11b1c76..e930ae3 100644
+--- a/layout/includes/rightside.pug
++++ b/layout/includes/rightside.pug
+@@ -51,4 +51,6 @@ mixin rightsideItem(array)
+ 
+     button#go-up(type="button" title=_p("rightside.back_to_top"))
+       span.scroll-percent
+-      i.fas.fa-arrow-up
+\ No newline at end of file
++      i.fas.fa-arrow-up
++    button#go-down(type="button" title="Scroll to bottom" onclick="btf.scrollToDest(document.body.scrollHeight, 500)")
++      i.fas.fa-arrow-down
+diff --git a/source/css/_layout/loading.styl b/source/css/_layout/loading.styl
+index fd442d7..ae1cde3 100644
+--- a/source/css/_layout/loading.styl
++++ b/source/css/_layout/loading.styl
+@@ -1,95 +1 @@
+-if hexo-config('preloader.enable') && hexo-config('preloader.source') == 1
+-  .loading-bg
+-    position: fixed
+-    z-index: 1000
+-    width: 50%
+-    height: 100%
+-    background-color: var(--preloader-bg)
+-
+-  #loading-box
+-    .loading-left-bg
+-      @extend .loading-bg
+-
+-    .loading-right-bg
+-      @extend .loading-bg
+-      right: 0
+-
+-    .spinner-box
+-      position: fixed
+-      z-index: 1001
+-      display: flex
+-      justify-content: center
+-      align-items: center
+-      width: 100%
+-      height: 100vh
+-
+-      .configure-border-1
+-        position: absolute
+-        padding: 3px
+-        width: 115px
+-        height: 115px
+-        background: #ffab91
+-        animation: configure-clockwise 3s ease-in-out 0s infinite alternate
+-
+-      .configure-border-2
+-        left: -115px
+-        padding: 3px
+-        width: 115px
+-        height: 115px
+-        background: rgb(63, 249, 220)
+-        transform: rotate(45deg)
+-        animation: configure-xclockwise 3s ease-in-out 0s infinite alternate
+-
+-      .loading-word
+-        position: absolute
+-        color: var(--preloader-color)
+-        font-size: 16px
+-
+-      .configure-core
+-        width: 100%
+-        height: 100%
+-        background-color: var(--preloader-bg)
+-
+-    &.loaded
+-      .loading-left-bg
+-        transition: all .5s
+-        transform: translate(-100%, 0)
+-
+-      .loading-right-bg
+-        transition: all .5s
+-        transform: translate(100%, 0)
+-
+-      .spinner-box
+-        display: none
+-
+-  @keyframes configure-clockwise
+-    0%
+-      transform: rotate(0)
+-
+-    25%
+-      transform: rotate(90deg)
+-
+-    50%
+-      transform: rotate(180deg)
+-
+-    75%
+-      transform: rotate(270deg)
+-
+-    100%
+-      transform: rotate(360deg)
+-
+-  @keyframes configure-xclockwise
+-    0%
+-      transform: rotate(45deg)
+-
+-    25%
+-      transform: rotate(-45deg)
+-
+-    50%
+-      transform: rotate(-135deg)
+-
+-    75%
+-      transform: rotate(-225deg)
+-
+-    100%
+-      transform: rotate(-315deg)
++@import '../_load_style/shine'
+diff --git a/source/css/_load_style/default.styl b/source/css/_load_style/default.styl
+new file mode 100644
+index 0000000..e59bca1
+--- /dev/null
++++ b/source/css/_load_style/default.styl
+@@ -0,0 +1,93 @@
++.loading-bg
++  position fixed
++  z-index 1000
++  width 50%
++  height 100%
++  background var(--preloader-bg)
++#loading-box
++  .loading-left-bg
++    @extend .loading-bg
++    left 0
++  .loading-right-bg
++    @extend .loading-bg
++    right 0
++  &.loaded
++    z-index -1000
++    .loading-left-bg
++      transition all 1.0s
++      transform translate(-100%, 0)
++    .loading-right-bg
++      transition all 1.0s
++      transform translate(100%, 0)
++#loading-box
++  .spinner-box
++    position fixed
++    z-index 1001
++    display flex
++    justify-content center
++    align-items center
++    width 100%
++    height 100vh
++
++    .configure-border-1
++      position absolute
++      padding 3px
++      width 115px
++      height 115px
++      background #ffab91
++      animation configure-clockwise 3s ease-in-out 0s infinite alternate
++
++    .configure-border-2
++      left -115px
++      padding 3px
++      width 115px
++      height 115px
++      background rgb(63, 249, 220)
++      transform rotate(45deg)
++      animation configure-xclockwise 3s ease-in-out 0s infinite alternate
++
++    .loading-word
++      position absolute
++      color var(--preloader-color)
++      font-size 16px
++
++    .configure-core
++      width 100%
++      height 100%
++      background-color var(--preloader-bg)
++
++  &.loaded
++    .spinner-box
++      display none
++
++@keyframes configure-clockwise
++  0%
++    transform rotate(0)
++
++  25%
++    transform rotate(90deg)
++
++  50%
++    transform rotate(180deg)
++
++  75%
++    transform rotate(270deg)
++
++  100%
++    transform rotate(360deg)
++
++@keyframes configure-xclockwise
++  0%
++    transform rotate(45deg)
++
++  25%
++    transform rotate(-45deg)
++
++  50%
++    transform rotate(-135deg)
++
++  75%
++    transform rotate(-225deg)
++
++  100%
++    transform rotate(-315deg)
+diff --git a/source/css/_load_style/gear.styl b/source/css/_load_style/gear.styl
+new file mode 100644
+index 0000000..6685c4f
+--- /dev/null
++++ b/source/css/_load_style/gear.styl
+@@ -0,0 +1,208 @@
++#loading-box
++  position fixed
++  z-index 1000
++  width 100vw
++  height 100vh
++  overflow hidden
++  text-align center
++  &.loaded
++    z-index -1000
++    .gear-loader
++      display none
++  .gear-loader
++    height 100%
++    position relative
++    margin auto
++    width 400px
++  .gear-loader_overlay
++    width 100px
++    height 100px
++    background transparent
++    box-shadow 0px 0px 0px 1000px rgba(0, 0, 0, 0.67), 0px 0px 19px 0px rgba(0, 0, 0, 0.16) inset
++    border-radius 100%
++    z-index -1
++    position absolute
++    left 0
++    right 0
++    top 0
++    bottom 0
++    margin auto
++  .gear-loader_avater
++    width 100px
++    height 100px
++    background url(/img/butterfly-icon.png) center no-repeat
++    background-color rgba(0, 0, 0, 0.67)
++    background-size 100%
++    border-radius 100%
++    border 1px solid black
++    z-index 0
++    left 0
++    right 0
++    top 0
++    bottom 0
++    margin auto
++    position absolute
++  .gear-loader_cogs
++    z-index -2
++    width 100px
++    height 100px
++    top -120px !important
++    position absolute
++    left 0
++    right 0
++    top 0
++    bottom 0
++    margin auto
++  .gear-loader_cogs__top
++    position relative
++    width 100px
++    height 100px
++    transform-origin 50px 50px
++    -webkit-animation rotate 10s infinite linear
++    animation rotate 10s infinite linear
++    div
++      &:nth-of-type(1)
++        transform rotate(30deg)
++      &:nth-of-type(2)
++        transform rotate(60deg)
++      &:nth-of-type(3)
++        transform rotate(90deg)
++      &.gear-top_part
++        width 100px
++        border-radius 10px
++        position absolute
++        height 100px
++        background #f98db9
++      &.gear-top_hole
++        width 50px
++        height 50px
++        border-radius 100%
++        background white
++        position absolute
++        position absolute
++        left 0
++        right 0
++        top 0
++        bottom 0
++        margin auto
++  .gear-loader_cogs__left
++    position relative
++    width 80px
++    transform rotate(16deg)
++    top 28px
++    transform-origin 40px 40px
++    animation rotate_left 10s 0.1s infinite reverse linear
++    left -24px
++    height 80px
++    div
++      &:nth-of-type(1)
++        transform rotate(30deg)
++      &:nth-of-type(2)
++        transform rotate(60deg)
++      &:nth-of-type(3)
++        transform rotate(90deg)
++      &.gear-left_part
++        width 80px
++        border-radius 6px
++        position absolute
++        height 80px
++        background #97ddff
++      &.gear-left_hole
++        width 40px
++        height 40px
++        border-radius 100%
++        background white
++        position absolute
++        position absolute
++        left 0
++        right 0
++        top 0
++        bottom 0
++        margin auto
++  .gear-loader_cogs__bottom
++    position relative
++    width 60px
++    top -65px
++    transform-origin 30px 30px
++    -webkit-animation rotate_left 10.2s 0.4s infinite linear
++    animation rotate_left 10.2s 0.4s infinite linear
++    transform rotate(4deg)
++    left 79px
++    height 60px
++    div
++      &:nth-of-type(1)
++        transform rotate(30deg)
++      &:nth-of-type(2)
++        transform rotate(60deg)
++      &:nth-of-type(3)
++        transform rotate(90deg)
++      &.gear-bottom_part
++        width 60px
++        border-radius 5px
++        position absolute
++        height 60px
++        background #ffcd66
++      &.gear-bottom_hole
++        width 30px
++        height 30px
++        border-radius 100%
++        background white
++        position absolute
++        position absolute
++        left 0
++        right 0
++        top 0
++        bottom 0
++        margin auto
++
++
++
++/* Animations */
++@-webkit-keyframes rotate {
++  from {
++    transform: rotate(0deg);
++  }
++  to {
++    transform: rotate(360deg);
++  }
++}
++@keyframes rotate {
++  from {
++    transform: rotate(0deg);
++  }
++  to {
++    transform: rotate(360deg);
++  }
++}
++@-webkit-keyframes rotate_left {
++  from {
++    transform: rotate(16deg);
++  }
++  to {
++    transform: rotate(376deg);
++  }
++}
++@keyframes rotate_left {
++  from {
++    transform: rotate(16deg);
++  }
++  to {
++    transform: rotate(376deg);
++  }
++}
++@-webkit-keyframes rotate_right {
++  from {
++    transform: rotate(4deg);
++  }
++  to {
++    transform: rotate(364deg);
++  }
++}
++@keyframes rotate_right {
++  from {
++    transform: rotate(4deg);
++  }
++  to {
++    transform: rotate(364deg);
++  }
++}
+diff --git a/source/css/_load_style/image.styl b/source/css/_load_style/image.styl
+new file mode 100644
+index 0000000..811bebd
+--- /dev/null
++++ b/source/css/_load_style/image.styl
+@@ -0,0 +1,46 @@
++.loading-bg
++  position fixed
++  z-index 1000
++  width 50%
++  height 100%
++  background var(--preloader-bg)
++#loading-box
++  .loading-left-bg
++    @extend .loading-bg
++    left 0
++  .loading-right-bg
++    @extend .loading-bg
++    right 0
++  &.loaded
++    z-index -1000
++    .loading-left-bg
++      transition all 1.0s
++      transform translate(-100%, 0)
++    .loading-right-bg
++      transition all 1.0s
++      transform translate(100%, 0)
++#loading-box
++  position fixed
++  z-index 1000
++  display -webkit-box
++  display flex
++  -webkit-box-align center
++  align-items center
++  -webkit-box-pack center
++  justify-content center
++  -webkit-box-orient vertical
++  -webkit-box-direction normal
++  flex-direction column
++  flex-wrap wrap
++  width 100vw
++  height 100vh
++  overflow hidden
++
++  .load-image
++    position fixed
++    z-index 1001
++    display flex
++
++  &.loaded
++    .load-image
++      display none
+diff --git a/source/css/_load_style/ironheart.styl b/source/css/_load_style/ironheart.styl
+new file mode 100644
+index 0000000..9dc42ed
+--- /dev/null
++++ b/source/css/_load_style/ironheart.styl
+@@ -0,0 +1,105 @@
++.loading-bg
++  position fixed
++  z-index 1000
++  width 50%
++  height 100%
++  background var(--preloader-bg)
++#loading-box
++  .loading-left-bg
++    @extend .loading-bg
++    left 0
++  .loading-right-bg
++    @extend .loading-bg
++    right 0
++  &.loaded
++    z-index -1000
++    .loading-left-bg
++      transition all 1.0s
++      transform translate(-100%, 0)
++    .loading-right-bg
++      transition all 1.0s
++      transform translate(100%, 0)
++#loading-box
++  position fixed
++  z-index 1000
++  display -webkit-box
++  display flex
++  -webkit-box-align center
++  align-items center
++  -webkit-box-pack center
++  justify-content center
++  -webkit-box-orient vertical
++  -webkit-box-direction normal
++  flex-direction column
++  flex-wrap wrap
++  width 100vw
++  height 100vh
++  overflow hidden
++
++  &.loaded
++    .iron-container
++      display none
++
++  .iron-circle
++    border-radius 50%
++
++  .iron-center
++    position absolute
++    top 50%
++    left 50%
++    transform translate(-50%, -50%)
++
++  .iron-container
++    z-index 1001
++    position relative
++    width 300px
++    height 300px
++    border 1px solid rgb(18, 20, 20)
++    background-color #384c50
++    box-shadow 0 0 32px 8px rgb(18, 20, 20), 0 0 4px 1px rgb(18, 20, 20) inset
++    .iron-box1
++      width 238px
++      height 238px
++      background-color rgb(22, 26, 27)
++      box-shadow 0 0 4px 1px #52fefe
++    .iron-box2
++      width 220px
++      height 220px
++      background-color #fff
++      box-shadow 0 0 5px 1px #52fefe, 0 0 5px 4px #52fefe inset
++    .iron-box3
++      width 180px
++      height 180px
++      background-color #073c4b
++      box-shadow 0 0 5px 4px #52fefe, 0 0 6px 2px #52fefe inset
++    .iron-box4
++      width 120px
++      height 120px
++      border 1px solid #52fefe
++      background-color #fff
++      box-shadow 0 0 2px 1px #52fefe, 0 0 10px 5px #52fefe inset
++    .iron-box5
++      width 70px
++      height 70px
++      border 5px solid #1b4e5f
++      box-shadow 0 0 7px 5px #52fefe, 0 0 10px 10px #52fefe inset
++    .iron-box6
++      position relative
++      width 100%
++      height 100%
++      animation ironrotate 3s linear infinite
++      .iron-coil
++        position absolute
++        width 30px
++        height 20px
++        top calc(50% - 110px)
++        left calc(50% - 15px)
++        background-color #073c4b
++        box-shadow 0 0 5px #52fefe inset
++        transform rotate(calc(var(--i) * 45deg))
++        transform-origin center 110px
++@keyframes ironrotate
++	0%
++		transform rotate(0)
++	100%
++		transform rotate(360deg)
+diff --git a/source/css/_load_style/shine.styl b/source/css/_load_style/shine.styl
+new file mode 100644
+index 0000000..d32c6e0
+--- /dev/null
++++ b/source/css/_load_style/shine.styl
+@@ -0,0 +1,65 @@
++.loading-bg
++  display flex
++  width 100%
++  height 100%
++  position fixed
++  background #f6eff6 /*可以此处改为你需要的背景色，日间模式，，或者在自定义引入的custom.css进行覆盖，custom.css是什么请看 魔改配置 章节*/
++  z-index 1001
++  opacity 1
++  transition 0.3s
++
++[data-theme=dark] .loading-bg { /*夜间模式*/
++  display flex
++  width 100%
++  height 100%
++  position fixed
++  background #020305
++  z-index 1001
++  opacity 1
++  transition 0.3s
++}
++
++#loading-box
++  .loading-img
++    width 100px
++    height 100px
++    border-radius 50%
++    margin auto
++    border 4px solid #f0f0f2
++    animation-duration 0.3s
++    animation-name loadingAction
++    animation-iteration-count infinite
++    animation-direction alternate
++
++  .loading-image-dot
++    width 30px
++    height 30px
++    background #6bdf8f
++    position absolute
++    border-radius 50%
++    border 6px solid #fff
++    top 50%
++    left 50%
++    transform translate(18px, 24px)
++
++  #loading-percentage
++    position absolute
++    top 67%
++    left 50%
++    transform translateX(-50%)
++    &::before
++      content '「'
++      margin-right 10px
++    &::after
++      content '」'
++      margin-left 10px
++  &.loaded
++    .loading-bg
++      opacity 0
++      z-index -1000
++
++@keyframes loadingAction
++  0%
++    opacity 1
++  100%
++    opacity 0.4
+diff --git a/source/css/_load_style/wizard.styl b/source/css/_load_style/wizard.styl
+new file mode 100644
+index 0000000..497a11f
+--- /dev/null
++++ b/source/css/_load_style/wizard.styl
+@@ -0,0 +1,827 @@
++.loading-bg
++  position fixed
++  z-index 1000
++  width 50%
++  height 100%
++  background var(--preloader-bg)
++#loading-box
++  .loading-left-bg
++    @extend .loading-bg
++    left 0
++  .loading-right-bg
++    @extend .loading-bg
++    right 0
++  &.loaded
++    z-index -1000
++    .loading-left-bg
++      transition all 1.0s
++      transform translate(-100%, 0)
++    .loading-right-bg
++      transition all 1.0s
++      transform translate(100%, 0)
++#loading-box
++  position fixed
++  z-index 1000
++  display -webkit-box
++  display flex
++  -webkit-box-align center
++  align-items center
++  -webkit-box-pack center
++  justify-content center
++  -webkit-box-orient vertical
++  -webkit-box-direction normal
++  flex-direction column
++  flex-wrap wrap
++  width 100vw
++  height 100vh
++  overflow hidden
++
++  &.loaded
++    .wizard-scene
++      display none
++
++.wizard-scene
++  position fixed
++  z-index 1001
++  display -webkit-box
++  display flex
++
++.wizard
++  position relative
++  width 190px
++  height 240px
++
++.wizard-body
++  position absolute
++  bottom 0
++  left 68px
++  height 100px
++  width 60px
++  background #3f64ce
++  &::after
++    content ""
++    position absolute
++    bottom 0
++    left 20px
++    height 100px
++    width 60px
++    background #3f64ce
++    -webkit-transform skewX(14deg)
++    transform skewX(14deg)
++
++.wizard-right-arm
++  position absolute
++  bottom 74px
++  left 110px
++  height 44px
++  width 90px
++  background #3f64ce
++  border-radius 22px
++  -webkit-transform-origin 16px 22px
++  transform-origin 16px 22px
++  -webkit-transform rotate(70deg)
++  transform rotate(70deg)
++  -webkit-animation right_arm 10s ease-in-out infinite
++  animation right_arm 10s ease-in-out infinite
++  .right-hand
++    position absolute
++    right 8px
++    bottom 8px
++    width 30px
++    height 30px
++    border-radius 50%
++    background #f1c5b4
++    -webkit-transform-origin center center
++    transform-origin center center
++    -webkit-transform rotate(-40deg)
++    transform rotate(-40deg)
++    -webkit-animation right_hand 10s ease-in-out infinite
++    animation right_hand 10s ease-in-out infinite
++  .wizard-right-hand
++    &::after
++      content ""
++      position absolute
++      right 0px
++      top -8px
++      width 15px
++      height 30px
++      border-radius 10px
++      background #f1c5b4
++      -webkit-transform translateY(16px)
++      transform translateY(16px)
++      -webkit-animation right_finger 10s ease-in-out infinite
++      animation right_finger 10s ease-in-out infinite
++
++.wizard-left-arm
++  position absolute
++  bottom 74px
++  left 26px
++  height 44px
++  width 70px
++  background #3f64ce
++  border-bottom-left-radius 8px
++  -webkit-transform-origin 60px 26px
++  transform-origin 60px 26px
++  -webkit-transform rotate(-70deg)
++  transform rotate(-70deg)
++  -webkit-animation left_arm 10s ease-in-out infinite
++  animation left_arm 10s ease-in-out infinite
++  .wizard-left-hand
++    position absolute
++    left -18px
++    top 0
++    width 18px
++    height 30px
++    border-top-left-radius 35px
++    border-bottom-left-radius 35px
++    background #f1c5b4
++    &::after
++      content ""
++      position absolute
++      right 0
++      top 0
++      width 30px
++      height 15px
++      border-radius 20px
++      background #f1c5b4
++      -webkit-transform-origin right bottom
++      transform-origin right bottom
++      -webkit-transform scaleX(0)
++      transform scaleX(0)
++      -webkit-animation left_finger 10s ease-in-out infinite
++      animation left_finger 10s ease-in-out infinite
++
++.wizard-head
++  position absolute
++  top 0
++  left 14px
++  width 160px
++  height 210px
++  -webkit-transform-origin center center
++  transform-origin center center
++  -webkit-transform rotate(-3deg)
++  transform rotate(-3deg)
++  -webkit-animation head 10s ease-in-out infinite
++  animation head 10s ease-in-out infinite
++  .wizard-beard
++    position absolute
++    bottom 0
++    left 38px
++    height 106px
++    width 80px
++    border-bottom-right-radius 55%
++    background #ffffff
++    &::after
++      content ""
++      position absolute
++      top 16px
++      left -10px
++      width 40px
++      height 20px
++      border-radius 20px
++      background #ffffff
++  .wizard-face
++    position absolute
++    bottom 76px
++    left 38px
++    height 30px
++    width 60px
++    background #f1c5b4
++    &::before
++      content ""
++      position absolute
++      top 0px
++      left 40px
++      width 20px
++      height 40px
++      border-bottom-right-radius 20px
++      border-bottom-left-radius 20px
++      background #f1c5b4
++    &::after
++      content ""
++      position absolute
++      top 16px
++      left -10px
++      width 50px
++      height 20px
++      border-radius 20px
++      border-bottom-right-radius 0px
++      background #ffffff
++    .wizard-adds
++      position absolute
++      top 0px
++      left -10px
++      width 40px
++      height 20px
++      border-radius 20px
++      background #f1c5b4
++      &::after
++        content ""
++        position absolute
++        top 5px
++        left 80px
++        width 15px
++        height 20px
++        border-bottom-right-radius 20px
++        border-top-right-radius 20px
++        background #f1c5b4
++  .wizard-hat
++    position absolute
++    bottom 106px
++    left 0
++    width 160px
++    height 20px
++    border-radius 20px
++    background #3f64ce
++    &::before
++      content ""
++      position absolute
++      top -70px
++      left 50%
++      -webkit-transform translatex(-50%)
++      transform translatex(-50%)
++      width 0
++      height 0
++      border-style solid
++      border-width 0 34px 70px 50px
++      border-color transparent transparent #3f64ce transparent
++    &::after
++      content ""
++      position absolute
++      top 0
++      left 0
++      width 160px
++      height 20px
++      background #3f64ce
++      border-radius 20px
++    .wizard-hat-of-the-hat
++      position absolute
++      bottom 78px
++      left 79px
++      width 0
++      height 0
++      border-style solid
++      border-width 0 25px 25px 19px
++      border-color transparent transparent #3f64ce transparent
++      &::after
++        content ""
++        position absolute
++        top 6px
++        left -4px
++        width 35px
++        height 10px
++        border-radius 10px
++        border-bottom-left-radius 0px
++        background #3f64ce
++        -webkit-transform rotate(40deg)
++        transform rotate(40deg)
++    .wizard-four-point-star
++      position absolute
++      width 12px
++      height 12px
++      &::after
++        -webkit-transform rotate(156.66deg) skew(45deg)
++        transform rotate(156.66deg) skew(45deg)
++      &.--first
++        bottom 28px
++        left 46px
++      &.--second
++        bottom 40px
++        left 80px
++      &.--third
++        bottom 15px
++        left 108px
++
++.wizard-head .wizard-hat .wizard-four-point-star::after, .wizard-head .wizard-hat .wizard-four-point-star::before
++  content ""
++  position absolute
++  background #ffffff
++  display block
++  left 0
++  width 141.4213%
++  top 0
++  bottom 0
++  border-radius 10%
++  -webkit-transform rotate(66.66deg) skewX(45deg)
++  transform rotate(66.66deg) skewX(45deg)
++
++.wizard-objects
++  position relative
++  width 200px
++  height 240px
++
++.wizard-square
++  position absolute
++  bottom -60px
++  left -5px
++  width 120px
++  height 120px
++  border-radius 50%
++  -webkit-transform rotate(-360deg)
++  transform rotate(-360deg)
++  -webkit-animation path_square 10s ease-in-out infinite
++  animation path_square 10s ease-in-out infinite
++  &::after
++    content ""
++    position absolute
++    top 10px
++    left 0
++    width 50px
++    height 50px
++    background #9ab3f5
++
++.wizard-circle
++  position absolute
++  bottom 10px
++  left 0
++  width 100px
++  height 100px
++  border-radius 50%
++  -webkit-transform rotate(-360deg)
++  transform rotate(-360deg)
++  -webkit-animation path_circle 10s ease-in-out infinite
++  animation path_circle 10s ease-in-out infinite
++  &::after
++    content ""
++    position absolute
++    bottom -10px
++    left 25px
++    width 50px
++    height 50px
++    border-radius 50%
++    background #c56183
++
++.wizard-triangle
++  position absolute
++  bottom -62px
++  left -10px
++  width 110px
++  height 110px
++  border-radius 50%
++  -webkit-transform rotate(-360deg)
++  transform rotate(-360deg)
++  -webkit-animation path_triangle 10s ease-in-out infinite
++  animation path_triangle 10s ease-in-out infinite
++  &::after
++    content ""
++    position absolute
++    top 0
++    right -10px
++    width 0
++    height 0
++    border-style solid
++    border-width 0 28px 48px 28px
++    border-color transparent transparent #89beb3 transparent
++
++
++/** 10s animation - 10% = 1s */
++@-webkit-keyframes right_arm
++  0%
++    -webkit-transform rotate(70deg)
++    transform rotate(70deg)
++  10%
++    -webkit-transform rotate(8deg)
++    transform rotate(8deg)
++  15%
++    -webkit-transform rotate(20deg)
++    transform rotate(20deg)
++  20%
++    -webkit-transform rotate(10deg)
++    transform rotate(10deg)
++  25%
++    -webkit-transform rotate(26deg)
++    transform rotate(26deg)
++  30%
++    -webkit-transform rotate(10deg)
++    transform rotate(10deg)
++  35%
++    -webkit-transform rotate(28deg)
++    transform rotate(28deg)
++  40%
++    -webkit-transform rotate(9deg)
++    transform rotate(9deg)
++  45%
++    -webkit-transform rotate(28deg)
++    transform rotate(28deg)
++  50%
++    -webkit-transform rotate(8deg)
++    transform rotate(8deg)
++  58%
++    -webkit-transform rotate(74deg)
++    transform rotate(74deg)
++  62%
++    -webkit-transform rotate(70deg)
++    transform rotate(70deg)
++
++@keyframes right_arm
++  0%
++    -webkit-transform rotate(70deg)
++    transform rotate(70deg)
++  10%
++    -webkit-transform rotate(8deg)
++    transform rotate(8deg)
++  15%
++    -webkit-transform rotate(20deg)
++    transform rotate(20deg)
++  20%
++    -webkit-transform rotate(10deg)
++    transform rotate(10deg)
++  25%
++    -webkit-transform rotate(26deg)
++    transform rotate(26deg)
++  30%
++    -webkit-transform rotate(10deg)
++    transform rotate(10deg)
++  35%
++    -webkit-transform rotate(28deg)
++    transform rotate(28deg)
++  40%
++    -webkit-transform rotate(9deg)
++    transform rotate(9deg)
++  45%
++    -webkit-transform rotate(28deg)
++    transform rotate(28deg)
++  50%
++    -webkit-transform rotate(8deg)
++    transform rotate(8deg)
++  58%
++    -webkit-transform rotate(74deg)
++    transform rotate(74deg)
++  62%
++    -webkit-transform rotate(70deg)
++    transform rotate(70deg)
++
++@-webkit-keyframes left_arm
++  0%
++    -webkit-transform rotate(-70deg)
++    transform rotate(-70deg)
++  10%
++    -webkit-transform rotate(6deg)
++    transform rotate(6deg)
++  15%
++    -webkit-transform rotate(-18deg)
++    transform rotate(-18deg)
++  20%
++    -webkit-transform rotate(5deg)
++    transform rotate(5deg)
++  25%
++    -webkit-transform rotate(-18deg)
++    transform rotate(-18deg)
++  30%
++    -webkit-transform rotate(5deg)
++    transform rotate(5deg)
++  35%
++    -webkit-transform rotate(-17deg)
++    transform rotate(-17deg)
++  40%
++    -webkit-transform rotate(5deg)
++    transform rotate(5deg)
++  45%
++    -webkit-transform rotate(-18deg)
++    transform rotate(-18deg)
++  50%
++    -webkit-transform rotate(6deg)
++    transform rotate(6deg)
++  58%
++    -webkit-transform rotate(-74deg)
++    transform rotate(-74deg)
++  62%
++    -webkit-transform rotate(-70deg)
++    transform rotate(-70deg)
++
++@keyframes left_arm
++  0%
++    -webkit-transform rotate(-70deg)
++    transform rotate(-70deg)
++  10%
++    -webkit-transform rotate(6deg)
++    transform rotate(6deg)
++  15%
++    -webkit-transform rotate(-18deg)
++    transform rotate(-18deg)
++  20%
++    -webkit-transform rotate(5deg)
++    transform rotate(5deg)
++  25%
++    -webkit-transform rotate(-18deg)
++    transform rotate(-18deg)
++  30%
++    -webkit-transform rotate(5deg)
++    transform rotate(5deg)
++  35%
++    -webkit-transform rotate(-17deg)
++    transform rotate(-17deg)
++  40%
++    -webkit-transform rotate(5deg)
++    transform rotate(5deg)
++  45%
++    -webkit-transform rotate(-18deg)
++    transform rotate(-18deg)
++  50%
++    -webkit-transform rotate(6deg)
++    transform rotate(6deg)
++  58%
++    -webkit-transform rotate(-74deg)
++    transform rotate(-74deg)
++  62%
++    -webkit-transform rotate(-70deg)
++    transform rotate(-70deg)
++
++@-webkit-keyframes right_hand
++  0%
++    -webkit-transform rotate(-40deg)
++    transform rotate(-40deg)
++  10%
++    -webkit-transform rotate(-20deg)
++    transform rotate(-20deg)
++  15%
++    -webkit-transform rotate(-5deg)
++    transform rotate(-5deg)
++  20%
++    -webkit-transform rotate(-60deg)
++    transform rotate(-60deg)
++  25%
++    -webkit-transform rotate(0deg)
++    transform rotate(0deg)
++  30%
++    -webkit-transform rotate(-60deg)
++    transform rotate(-60deg)
++  35%
++    -webkit-transform rotate(0deg)
++    transform rotate(0deg)
++  40%
++    -webkit-transform rotate(-40deg)
++    transform rotate(-40deg)
++  45%
++    -webkit-transform rotate(-60deg)
++    transform rotate(-60deg)
++  50%
++    -webkit-transform rotate(10deg)
++    transform rotate(10deg)
++  60%
++    -webkit-transform rotate(-40deg)
++    transform rotate(-40deg)
++
++
++@keyframes right_hand
++  0%
++    -webkit-transform rotate(-40deg)
++    transform rotate(-40deg)
++  10%
++    -webkit-transform rotate(-20deg)
++    transform rotate(-20deg)
++  15%
++    -webkit-transform rotate(-5deg)
++    transform rotate(-5deg)
++  20%
++    -webkit-transform rotate(-60deg)
++    transform rotate(-60deg)
++  25%
++    -webkit-transform rotate(0deg)
++    transform rotate(0deg)
++  30%
++    -webkit-transform rotate(-60deg)
++    transform rotate(-60deg)
++  35%
++    -webkit-transform rotate(0deg)
++    transform rotate(0deg)
++  40%
++    -webkit-transform rotate(-40deg)
++    transform rotate(-40deg)
++  45%
++    -webkit-transform rotate(-60deg)
++    transform rotate(-60deg)
++  50%
++    -webkit-transform rotate(10deg)
++    transform rotate(10deg)
++  60%
++    -webkit-transform rotate(-40deg)
++    transform rotate(-40deg)
++
++@-webkit-keyframes right_finger
++  0%
++    -webkit-transform translateY(16px)
++    transform translateY(16px)
++  10%
++    -webkit-transform none
++    transform none
++  50%
++    -webkit-transform none
++    transform none
++  60%
++    -webkit-transform translateY(16px)
++    transform translateY(16px)
++
++@keyframes right_finger
++  0%
++    -webkit-transform translateY(16px)
++    transform translateY(16px)
++  10%
++    -webkit-transform none
++    transform none
++  50%
++    -webkit-transform none
++    transform none
++  60%
++    -webkit-transform translateY(16px)
++    transform translateY(16px)
++
++@-webkit-keyframes left_finger
++  0%
++    -webkit-transform scaleX(0)
++    transform scaleX(0)
++  10%
++    -webkit-transform scaleX(1) rotate(6deg)
++    transform scaleX(1) rotate(6deg)
++  15%
++    -webkit-transform scaleX(1) rotate(0deg)
++    transform scaleX(1) rotate(0deg)
++  20%
++    -webkit-transform scaleX(1) rotate(8deg)
++    transform scaleX(1) rotate(8deg)
++  25%
++    -webkit-transform scaleX(1) rotate(0deg)
++    transform scaleX(1) rotate(0deg)
++  30%
++    -webkit-transform scaleX(1) rotate(7deg)
++    transform scaleX(1) rotate(7deg)
++  35%
++    -webkit-transform scaleX(1) rotate(0deg)
++    transform scaleX(1) rotate(0deg)
++  40%
++    -webkit-transform scaleX(1) rotate(5deg)
++    transform scaleX(1) rotate(5deg)
++  45%
++    -webkit-transform scaleX(1) rotate(0deg)
++    transform scaleX(1) rotate(0deg)
++  50%
++    -webkit-transform scaleX(1) rotate(6deg)
++    transform scaleX(1) rotate(6deg)
++  58%
++    -webkit-transform scaleX(0)
++    transform scaleX(0)
++
++@keyframes left_finger
++  0%
++    -webkit-transform scaleX(0)
++    transform scaleX(0)
++  10%
++    -webkit-transform scaleX(1) rotate(6deg)
++    transform scaleX(1) rotate(6deg)
++  15%
++    -webkit-transform scaleX(1) rotate(0deg)
++    transform scaleX(1) rotate(0deg)
++  20%
++    -webkit-transform scaleX(1) rotate(8deg)
++    transform scaleX(1) rotate(8deg)
++  25%
++    -webkit-transform scaleX(1) rotate(0deg)
++    transform scaleX(1) rotate(0deg)
++  30%
++    -webkit-transform scaleX(1) rotate(7deg)
++    transform scaleX(1) rotate(7deg)
++  35%
++    -webkit-transform scaleX(1) rotate(0deg)
++    transform scaleX(1) rotate(0deg)
++  40%
++    -webkit-transform scaleX(1) rotate(5deg)
++    transform scaleX(1) rotate(5deg)
++  45%
++    -webkit-transform scaleX(1) rotate(0deg)
++    transform scaleX(1) rotate(0deg)
++  50%
++    -webkit-transform scaleX(1) rotate(6deg)
++    transform scaleX(1) rotate(6deg)
++  58%
++    -webkit-transform scaleX(0)
++    transform scaleX(0)
++
++@-webkit-keyframes head
++  0%
++    -webkit-transform rotate(-3deg)
++    transform rotate(-3deg)
++  10%
++    -webkit-transform translatex(10px) rotate(7deg)
++    transform translatex(10px) rotate(7deg)
++  50%
++    -webkit-transform translatex(0px) rotate(0deg)
++    transform translatex(0px) rotate(0deg)
++  56%
++    -webkit-transform rotate(-3deg)
++    transform rotate(-3deg)
++
++@keyframes head
++  0%
++    -webkit-transform rotate(-3deg)
++    transform rotate(-3deg)
++  10%
++    -webkit-transform translatex(10px) rotate(7deg)
++    transform translatex(10px) rotate(7deg)
++  50%
++    -webkit-transform translatex(0px) rotate(0deg)
++    transform translatex(0px) rotate(0deg)
++  56%
++    -webkit-transform rotate(-3deg)
++    transform rotate(-3deg)
++/** 10s animation - 10% = 1s */
++@-webkit-keyframes path_circle
++  0%
++    -webkit-transform translateY(0)
++    transform translateY(0)
++  10%
++    -webkit-transform translateY(-100px) rotate(-5deg)
++    transform translateY(-100px) rotate(-5deg)
++  55%
++    -webkit-transform translateY(-100px) rotate(-360deg)
++    transform translateY(-100px) rotate(-360deg)
++  58%
++    -webkit-transform translateY(-100px) rotate(-360deg)
++    transform translateY(-100px) rotate(-360deg)
++  63%
++    -webkit-transform rotate(-360deg)
++    transform rotate(-360deg)
++
++@keyframes path_circle
++  0%
++    -webkit-transform translateY(0)
++    transform translateY(0)
++  10%
++    -webkit-transform translateY(-100px) rotate(-5deg)
++    transform translateY(-100px) rotate(-5deg)
++  55%
++    -webkit-transform translateY(-100px) rotate(-360deg)
++    transform translateY(-100px) rotate(-360deg)
++  58%
++    -webkit-transform translateY(-100px) rotate(-360deg)
++    transform translateY(-100px) rotate(-360deg)
++  63%
++    -webkit-transform rotate(-360deg)
++    transform rotate(-360deg)
++
++@-webkit-keyframes path_square
++  0%
++    -webkit-transform translateY(0)
++    transform translateY(0)
++  10%
++    -webkit-transform translateY(-155px) translatex(-15px) rotate(10deg)
++    transform translateY(-155px) translatex(-15px) rotate(10deg)
++  55%
++    -webkit-transform translateY(-155px) translatex(-15px) rotate(-350deg)
++    transform translateY(-155px) translatex(-15px) rotate(-350deg)
++  57%
++    -webkit-transform translateY(-155px) translatex(-15px) rotate(-350deg)
++    transform translateY(-155px) translatex(-15px) rotate(-350deg)
++  63%
++    -webkit-transform rotate(-360deg)
++    transform rotate(-360deg)
++
++@keyframes path_square
++  0%
++    -webkit-transform translateY(0)
++    transform translateY(0)
++  10%
++    -webkit-transform translateY(-155px) translatex(-15px) rotate(10deg)
++    transform translateY(-155px) translatex(-15px) rotate(10deg)
++  55%
++    -webkit-transform translateY(-155px) translatex(-15px) rotate(-350deg)
++    transform translateY(-155px) translatex(-15px) rotate(-350deg)
++  57%
++    -webkit-transform translateY(-155px) translatex(-15px) rotate(-350deg)
++    transform translateY(-155px) translatex(-15px) rotate(-350deg)
++  63%
++    -webkit-transform rotate(-360deg)
++    transform rotate(-360deg)
++
++@-webkit-keyframes path_triangle
++  0%
++    -webkit-transform translateY(0)
++    transform translateY(0)
++  10%
++    -webkit-transform translateY(-172px) translatex(10px) rotate(-10deg)
++    transform translateY(-172px) translatex(10px) rotate(-10deg)
++  55%
++    -webkit-transform translateY(-172px) translatex(10px) rotate(-365deg)
++    transform translateY(-172px) translatex(10px) rotate(-365deg)
++  58%
++    -webkit-transform translateY(-172px) translatex(10px) rotate(-365deg)
++    transform translateY(-172px) translatex(10px) rotate(-365deg)
++  63%
++    -webkit-transform rotate(-360deg)
++    transform rotate(-360deg)
++
++@keyframes path_triangle
++  0%
++    -webkit-transform translateY(0)
++    transform translateY(0)
++  10%
++    -webkit-transform translateY(-172px) translatex(10px) rotate(-10deg)
++    transform translateY(-172px) translatex(10px) rotate(-10deg)
++  55%
++    -webkit-transform translateY(-172px) translatex(10px) rotate(-365deg)
++    transform translateY(-172px) translatex(10px) rotate(-365deg)
++  58%
++    -webkit-transform translateY(-172px) translatex(10px) rotate(-365deg)
++    transform translateY(-172px) translatex(10px) rotate(-365deg)
++  63%
++    -webkit-transform rotate(-360deg)
++    transform rotate(-360deg)
+diff --git a/source/css/var.styl b/source/css/var.styl
+index bd1fb81..dffbc12 100644
+--- a/source/css/var.styl
++++ b/source/css/var.styl
+@@ -97,9 +97,9 @@ $gallery-color = #fff
+ // tag-hide
+ $tag-hide-bg = $theme-color
+ $tag-hide-toggle-bg = #f0f0f0
+-// preloader
+-$preloader-bg = #37474f
+-$preloader-word-color = #fff
++// preloader
++$preloader-bg = hexo-config('preloader.enable') && hexo-config('preloader.load_color') ? convert(hexo-config('preloader.load_color')) : #37474f
++$preloader-word-color = #fff
+ // rightside
+ $rightside-bottom = hexo-config('rightside_bottom') ? convert(hexo-config('rightside_bottom')) : 40px
+ // fireworks
+@@ -230,4 +230,4 @@ $note-dark-danger-text = #e67572
+ $note-dark-modern-danger-border = #c7898c
+ $note-dark-modern-danger-bg = #4d2b2e
+ $note-dark-modern-danger-text = #d98b8e
+-$note-dark-modern-danger-hover = #e59fa2
+\ No newline at end of file
++$note-dark-modern-danger-hover = #e59fa2

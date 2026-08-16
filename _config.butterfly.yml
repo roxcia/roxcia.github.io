@@ -70,3 +70,13 @@ theme_color:
 inject:
   head:
     - <link rel="stylesheet" href="/css/roxci-theme.css">
+  bottom:
+    - <script async src="/js/title.js"></script>
+
+preloader:
+  enable: true
+  source: 3
+  avatar: /img/butterfly-icon.png
+  load_image: /img/404.jpg
+  load_color: '#f6eff6'
+  pace_css_url:
