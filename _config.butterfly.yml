@@ -34,7 +34,7 @@ subtitle:
 aside:
   card_author:
     enable: true
-    description: roxci，一个热爱技术、审美和生活记录的女生
+    description: roxcia，一个热爱技术、审美和生活记录的女生
     button:
       enable: true
       icon: fab fa-github
@@ -84,3 +84,47 @@ preloader:
 
 # 友链样式：butterfly 为默认样式，volantis 为站点卡片样式，flexcard 为弹性卡片样式
 flink_style: volantis
+
+# Search
+search:
+  use: local_search
+  placeholder: Search for Posts
+  local_search:
+    preload: false
+    top_n_per_article: 1
+    unescape: false
+    pagination:
+      enable: false
+      hitsPerPage: 8
+    CDN:
+
+# Mouse click effects: fireworks
+fireworks:
+  enable: false
+  zIndex: 9999
+  mobile: false
+
+# Mouse click effects: Heart symbol
+click_heart:
+  enable: false
+  mobile: false
+
+# Mouse click effects: words
+clickShowText:
+  enable: true
+  text:
+    - 富强
+    - 民主
+    - 文明
+    - 和谐
+    - 爱国
+    - 敬业
+    - 诚信
+    - 友善
+    - 自由
+    - 平等
+    - 公正
+    - 法治
+  fontSize: 15px
+  random: false
+  mobile: true
