@@ -13,6 +13,14 @@ social:
 
 favicon: /img/favicon.ico
 
+background: '#f8f4ef'
+
+default_top_img: /img/404.jpg
+index_img: /img/404.jpg
+archive_img: /img/404.jpg
+tag_img: /img/404.jpg
+category_img: /img/404.jpg
+
 subtitle:
   enable: true
   effect: true
@@ -25,7 +33,7 @@ subtitle:
 aside:
   card_author:
     enable: true
-    description: 记录技术、生活与长期思考
+    description: roxci，一个热爱技术、审美和生活记录的女生
     button:
       enable: true
       icon: fab fa-github
@@ -33,4 +41,32 @@ aside:
       link: https://github.com/USERNAME
   card_announcement:
     enable: true
-    content: 博客已搭建完成，后续文章会持续更新。
+    content: 欢迎来到 roxci 的博客，愿这里的文字清爽、真诚，也有一点漂亮。
+
+beautify:
+  enable: true
+  field: site
+  title_prefix_icon: '\f5ad'
+  title_prefix_icon_color: '#e56b8c'
+
+theme_color:
+  enable: true
+  main: '#e56b8c'
+  paginator: '#47a7a1'
+  button_hover: '#6d71d9'
+  text_selection: '#f3c6d4'
+  link_color: '#d85f83'
+  meta_color: '#7b7280'
+  hr_color: '#ead7c7'
+  code_foreground: '#b34e6f'
+  code_background: '#fff5f8'
+  toc_color: '#47a7a1'
+  blockquote_padding_color: '#e56b8c'
+  blockquote_background_color: '#fff2f6'
+  scrollbar_color: '#e56b8c'
+  meta_theme_color_light: '#f8f4ef'
+  meta_theme_color_dark: '#191724'
+
+inject:
+  head:
+    - <link rel="stylesheet" href="/blog/css/roxci-theme.css">
