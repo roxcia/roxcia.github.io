@@ -1,0 +1,36 @@
+# Site-specific Butterfly overrides.
+# The theme itself is tracked as a Git submodule at themes/butterfly.
+
+menu:
+  首页: / || fas fa-home
+  归档: /archives/ || fas fa-archive
+  分类: /categories/ || fas fa-folder-open
+  标签: /tags/ || fas fa-tags
+  关于: /about/ || fas fa-user
+
+social:
+  fab fa-github: https://github.com/USERNAME || GitHub || '#24292e'
+
+favicon: /img/favicon.ico
+
+subtitle:
+  enable: true
+  effect: true
+  typed_option:
+  source: false
+  sub:
+    - 用文字沉淀日常
+    - 用代码整理世界
+
+aside:
+  card_author:
+    enable: true
+    description: 记录技术、生活与长期思考
+    button:
+      enable: true
+      icon: fab fa-github
+      text: GitHub
+      link: https://github.com/USERNAME
+  card_announcement:
+    enable: true
+    content: 博客已搭建完成，后续文章会持续更新。
