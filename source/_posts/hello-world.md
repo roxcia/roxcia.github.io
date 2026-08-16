@@ -1,5 +1,5 @@
 ---
-title: roxci 的博客搭建完成
+title: roxcia的博客搭建完成
 date: 2026-08-16 00:00:00
 categories:
   - 博客
@@ -9,7 +9,7 @@ tags:
   - Butterfly
 ---
 
-这个博客已经基于 Hexo 和 Butterfly 主题搭建完成，站点名字也更新为 roxci 的博客。后续只需要在 `source/_posts` 目录里继续写 Markdown 文章，就可以通过 GitHub Pages 自动发布。
+这个博客已经基于 Hexo 和 Butterfly 主题搭建完成，站点名字也更新为 roxcia的博客。后续只需要在 `source/_posts` 目录里继续写 Markdown 文章，就可以通过 GitHub Pages 自动发布。
 
 ## 写作
 

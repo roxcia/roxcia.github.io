@@ -1,4 +1,4 @@
-# roxci 的博客
+# roxcia的博客
 
 基于 Hexo 8 和 Butterfly 主题的个人博客，已配置 GitHub Pages 自动部署。
 
