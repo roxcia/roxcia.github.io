@@ -108,13 +108,15 @@ categoryBar:
   message:
     - descr: 博客搭建记录
       cover: /img/background.jpg
-    - descr: htblabs
-      cover: /img/background.jpg
     - descr: htb prolab
       cover: /img/background.jpg
     - descr: java代码审计
       cover: /img/background.jpg
     - descr: 内网渗透知识总结
+      cover: /img/background.jpg
+    - descr: htblabs
+      cover: /img/background.jpg
+    - descr: prolabs
       cover: /img/background.jpg
   custom_css: https://npm.elemecdn.com/hexo-butterfly-categories-card@1.0.0/lib/categorybar.css
 
