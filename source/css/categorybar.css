@@ -1,0 +1,95 @@
+#categoryBar {
+  width: 100% !important;
+}
+
+ul.categoryBar-list {
+  margin: 5px 5px 0 !important;
+  padding: 0 !important;
+}
+
+li.categoryBar-list-item {
+  display: inline-block;
+  height: 180px !important;
+  margin: 5px 0.5% 0 !important;
+  padding: 25px 0 25px 25px !important;
+  overflow: hidden;
+  font-weight: bold;
+  border-radius: 10px;
+  box-shadow: rgba(50, 50, 50, 0.3) 50px 50px 50px 50px inset;
+  background-size: 100% !important;
+  background-position: center !important;
+  transition: background-size 0.5s ease, box-shadow 0.5s ease;
+}
+
+li.categoryBar-list-item:hover {
+  background-size: 110% !important;
+  box-shadow: inset 500px 50px 50px 50px rgba(50, 50, 50, 0.6);
+}
+
+a.categoryBar-list-link {
+  color: #fff !important;
+  font-size: 20px !important;
+}
+
+a.categoryBar-list-link::before {
+  content: '|' !important;
+  color: #fff !important;
+  font-size: 20px !important;
+}
+
+a.categoryBar-list-link::after {
+  display: block;
+  position: relative;
+  bottom: 0;
+  width: 0;
+  height: 3px;
+  content: '';
+  border-radius: 3px;
+  background-color: #fff;
+}
+
+a.categoryBar-list-link:hover::after {
+  width: 90%;
+  margin-left: 1%;
+  transition: width 0.5s;
+}
+
+span.categoryBar-list-count {
+  display: block !important;
+  color: #fff !important;
+  font-size: 20px !important;
+}
+
+span.categoryBar-list-count::before {
+  display: inline-block;
+  padding-right: 15px !important;
+  content: '\f02d' !important;
+  font-family: 'Font Awesome 6 Free';
+  font-style: normal;
+  font-weight: 600;
+  font-variant: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+span.categoryBar-list-descr {
+  display: block !important;
+  position: relative;
+  right: -100%;
+  padding: 5px;
+  color: #fff !important;
+  font-size: 20px !important;
+}
+
+li.categoryBar-list-item:hover span.categoryBar-list-descr {
+  transform: translate(-100%, 0);
+  transition: transform 0.5s;
+}
+
+@media screen and (max-width: 650px) {
+  li.categoryBar-list-item {
+    width: 48% !important;
+    height: 150px !important;
+    margin: 5px 1% 0 !important;
+  }
+}

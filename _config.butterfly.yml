@@ -118,7 +118,7 @@ categoryBar:
       cover: /img/background.jpg
     - descr: prolabs
       cover: /img/background.jpg
-  custom_css: https://npm.elemecdn.com/hexo-butterfly-categories-card@1.0.0/lib/categorybar.css
+  custom_css: /css/categorybar.css
 
 banIE:
   enable: true
