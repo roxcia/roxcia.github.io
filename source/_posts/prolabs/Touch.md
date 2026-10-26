@@ -11,7 +11,7 @@ tags:
 ---
 # Touch
 
-![image-20261026085604852](https://gitee.com/crx12345/my-image-host/raw/master/images/20261026085612040.png)
+![image-20261026085604852](/images/prolabs/touch/20261026085612040.png)
 
 ## 信息收集
 
@@ -51,7 +51,7 @@ xfreerdp /v:10.129.61.194 /u:"Jenny Crawford" /p:"KS7X2M" /cert:ignore -sec:rdp
 
 看看能否远程rdp连接
 
-![image-20261026091342030](https://gitee.com/crx12345/my-image-host/raw/master/images/20261026091342267.png)
+![image-20261026091342030](/images/prolabs/touch/20261026091342267.png)
 
 看来不能远程rdp 看来失败了
 
@@ -73,7 +73,7 @@ WINRM       10.129.61.194   5985   KIOSK-042        [-] KIOSK-042\Jenny Crawford
 
 8443端口是个前端登录页面
 
-![image-20261026091544961](https://gitee.com/crx12345/my-image-host/raw/master/images/20261026091545039.png)
+![image-20261026091544961](/images/prolabs/touch/20261026091545039.png)
 
 ```sh
 ──(root㉿kali)-[~/htb/Touch]
@@ -104,7 +104,7 @@ Date: Mon, 26 Oct 2026 08:27:37 GMT
 
 成功登录
 
-![image-20261026093404464](https://gitee.com/crx12345/my-image-host/raw/master/images/20261026093404586.png)
+![image-20261026093404464](/images/prolabs/touch/20261026093404586.png)
 
 成功登录，并且发现了一组凭据
 
@@ -120,17 +120,17 @@ xfreerdp /v:10.129.61.194 /u:'KioskUser' /p:'K!0sk2026#' /cert:ignore /sec:rdp
 
 但是rdp连接成功
 
-![image-20261026094034389](https://gitee.com/crx12345/my-image-host/raw/master/images/20261026094034493.png)
+![image-20261026094034389](/images/prolabs/touch/20261026094034493.png)
 
 先把这个关了
 
-![image-20261026100535182](https://gitee.com/crx12345/my-image-host/raw/master/images/20261026100535328.png)
+![image-20261026100535182](/images/prolabs/touch/20261026100535328.png)
 
 远程rdp中点击右下角的「STAFF LOGIN」按钮. Agent 想拿staff 权限
 
 点击发出错误弹窗
 
-![image-20261026100707486](https://gitee.com/crx12345/my-image-host/raw/master/images/20261026100707554.png)
+![image-20261026100707486](/images/prolabs/touch/20261026100707554.png)
 
 现在，**直接点击那个蓝色的超链接**：`https://support.nexionsystems.com/docreader/troubleshoot`。
 
@@ -138,15 +138,15 @@ xfreerdp /v:10.129.61.194 /u:'KioskUser' /p:'K!0sk2026#' /cert:ignore /sec:rdp
 
 在浏览器中按下键盘快捷键 **`Ctrl + S`**。这会弹出一个“另存为”窗口。在“文件名”那一栏里，输入 `cmd.exe` 并回车
 
-![image-20261026101400345](https://gitee.com/crx12345/my-image-host/raw/master/images/20261026101400420.png)
+![image-20261026101400345](/images/prolabs/touch/20261026101400420.png)
 
 拿下user.txt
 
-![image-20261026101915589](https://gitee.com/crx12345/my-image-host/raw/master/images/20261026101915664.png)
+![image-20261026101915589](/images/prolabs/touch/20261026101915664.png)
 
 上传nc 反弹shell到kali上
 
-![image-20261026104932812](https://gitee.com/crx12345/my-image-host/raw/master/images/20261026104932868.png)
+![image-20261026104932812](/images/prolabs/touch/20261026104932868.png)
 
 查找数据库文件
 
@@ -156,7 +156,7 @@ xfreerdp /v:10.129.61.194 /u:'KioskUser' /p:'K!0sk2026#' /cert:ignore /sec:rdp
 C:\Program Files\HTB Airways\Kiosk>type packages\backend\src\database\index.ts
 ```
 
-![image-20261026105350467](https://gitee.com/crx12345/my-image-host/raw/master/images/20261026105350565.png)
+![image-20261026105350467](/images/prolabs/touch/20261026105350565.png)
 
 - **用户名**：`kiosk_app`
 - **密码**：`K!0sk_R3pl1ca#DB`
@@ -179,7 +179,7 @@ C:\Program Files\HTB Airways\Kiosk>
 
 用chisel建立隧道，连接数据库
 
-![image-20261026110439513](https://gitee.com/crx12345/my-image-host/raw/master/images/20261026110439599.png)
+![image-20261026110439513](/images/prolabs/touch/20261026110439599.png)
 
 密码 `K!0sk_R3pl1ca#DB`
 
@@ -216,7 +216,7 @@ MySQL [(none)]>
 
 查看特权
 
-![image-20261026113858959](https://gitee.com/crx12345/my-image-host/raw/master/images/20261026113859066.png)
+![image-20261026113858959](/images/prolabs/touch/20261026113859066.png)
 
 最后
 
@@ -226,13 +226,13 @@ MySQL [(none)]>
 
 MySQL 允许用户通过加载外部动态链接库（`.dll`）来扩展功能。我们在 Kali 里使用了 Metasploit 自带的 `lib_mysqludf_sys_64.dll`。这个 DLL 里打包了可以直接调用 Windows 系统命令的函数（如 `sys_eval`、`sys_exec`）。
 
-![image-20261026114756247](https://gitee.com/crx12345/my-image-host/raw/master/images/20261026114756284.png)
+![image-20261026114756247](/images/prolabs/touch/20261026114756284.png)
 
 上传 DLL 到插件目录
 
 因为 MySQL 强制要求加载的 DLL 必须放在它的专属插件目录里，所以我们先通过之前拿到的 `KioskUser` 的反弹 Shell，用 `curl` 把 DLL 下载到了 `C:\MySQL\lib\plugin\`。
 
-![image-20261026114913520](https://gitee.com/crx12345/my-image-host/raw/master/images/20261026114913558.png)
+![image-20261026114913520](/images/prolabs/touch/20261026114913558.png)
 
 创建自定义函数（关键的一步）
 
@@ -244,9 +244,9 @@ sql
 create function sys_eval returns string soname 'C:\\MySQL\\lib\\plugin\\lib_mysqludf_sys_64.dll';
 ```
 
-![image-20261026115005058](https://gitee.com/crx12345/my-image-host/raw/master/images/20261026115005116.png)
+![image-20261026115005058](/images/prolabs/touch/20261026115005116.png)
 
-![image-20261026114458481](https://gitee.com/crx12345/my-image-host/raw/master/images/20261026114458515.png)
+![image-20261026114458481](/images/prolabs/touch/20261026114458515.png)
 
 ```
 system
